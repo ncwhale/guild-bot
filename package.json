@@ -1,0 +1,27 @@
+{
+  "name": "guild-bot",
+  "version": "1.0.0",
+  "description": "A PCR guild telegram bot. simeple&naive.",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncwhale/guild-bot.git"
+  },
+  "keywords": [
+    "PCR",
+    "bot",
+    "telegram"
+  ],
+  "author": "Whale Mo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ncwhale/guild-bot/issues"
+  },
+  "homepage": "https://github.com/ncwhale/guild-bot#readme",
+  "dependencies": {
+    "koa": "^2.13.0"
+  }
+}
