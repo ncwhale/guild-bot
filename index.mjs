@@ -1,4 +1,6 @@
-import Koa from 'koa';
+import Koa from 'koa'
+import KoaJson from 'koa-json'
+import { router } from './route/index.mjs'
 import fs from 'fs'
 import process from 'process'
 import config from "./config.js"
@@ -18,6 +20,10 @@ function remove_socket_file() {
 
 const app = new Koa()
 
+// JSON middleware
+app.use(KoaJson(config.json || { pretty: false, param: "p" }))
+  .use(router.routes())
+  .use(router.allowedMethods())
 
 if (is_listen_path()) {
   process.on("exit", remove_socket_file)
