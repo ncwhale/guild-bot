@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A PCR guild telegram bot. simeple&naive.",
   "main": "index.mjs",
+  "type":"commonjs",
   "scripts": {
+    "start": "node index.mjs",
     "test": "mocha"
   },
   "repository": {
@@ -22,6 +24,7 @@
   },
   "homepage": "https://github.com/ncwhale/guild-bot#readme",
   "dependencies": {
-    "koa": "^2.13.0"
+    "koa": "^2.13.0",
+    "node-fetch": "^2.6.1"
   }
 }
