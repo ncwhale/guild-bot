@@ -1,11 +1,13 @@
 import KoaRouter from '@koa/router'
+import Bot from './bot.mjs'
 
 let router = new KoaRouter()
 
-router.get('/', (ctx, next) => {
-  ctx.body = {
-    hello: "world"
-  }
-})
+router
+  .use('/bot', Bot.routes(), Bot.allowedMethods())
+  .all('/', (ctx, next) => {
+    ctx.body = ''
+    ctx.state = 204
+  })
 
-export { router }
+export default router
