@@ -4,12 +4,15 @@ import KoaBody from 'koa-body'
 let router = new KoaRouter()
 
 router.get('/', (ctx, next) => {
-  ctx.body = {
-    hello: "world"
-  }
+  ctx.body = null
 })
 .post('/', KoaBody(), (ctx)=>{
-  ctx.body = JSON.stringify(ctx.request.body)
+  if(ctx.params.token != ctx.bot.token){
+    ctx.body = null
+    return
+  }
+
+  ctx.body = ctx.bot.update(ctx.request.body)
 })
 
 export default router
