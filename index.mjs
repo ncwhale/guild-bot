@@ -2,12 +2,13 @@ import Koa from 'koa'
 import KoaJson from 'koa-json'
 import KoaLogger from 'koa-logger'
 import router from './route/index.mjs'
+import Bot from './bot/index.mjs'
 import fs from 'fs'
 import process from 'process'
-import config from "./config.js"
+import config from "./utils/argv.js"
 
 function is_listen_path() {
-  return (typeof config.path === 'string' || config.path instanceof String)
+  return (typeof config.service.path === 'string' || config.service.path instanceof String)
 }
 
 // Wait for import.meta.main show in node.
@@ -22,15 +23,17 @@ function is_entrypoint() {
 // Remove socket file if exists.
 function remove_socket_file() {
   if (is_listen_path()) {
-    if (fs.existsSync(config.path))
-      fs.unlinkSync(config.path)
+    if (fs.existsSync(config.service.path))
+      fs.unlinkSync(config.service.path)
   }
 }
 
 const app = new Koa()
 
+app.context.bot = new Bot(config.bot)
+
 // Debugger logger
-if ('debug' in config && config.debug) {
+if (config.debug || config.verbose > 3) {
   app.use(KoaLogger())
 }
 
@@ -43,7 +46,7 @@ if (is_entrypoint()) {
   if (is_listen_path()) {
     process.on("exit", remove_socket_file)
     remove_socket_file()
-    app.listen(config.path)
+    app.listen(config.service.path)
   }
   else
     app.listen(config.port || 3000, config.host || '127.0.0.1')
