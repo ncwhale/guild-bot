@@ -29,6 +29,7 @@
     "koa-body": "^4.2.0",
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "yargs": "^16.0.3"
   }
 }
