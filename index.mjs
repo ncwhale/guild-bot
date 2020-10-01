@@ -20,7 +20,7 @@ function remove_socket_file() {
 
 const app = new Koa()
 
-// JSON middleware
+// Koa middleware
 app.use(KoaJson(config.json || { pretty: false, param: "p" }))
   .use(router.routes())
   .use(router.allowedMethods())
