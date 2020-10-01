@@ -7,7 +7,7 @@ router.get('/', (ctx, next) => {
   ctx.body = null
 })
 .post('/', KoaBody(), (ctx)=>{
-  if(ctx.params.token != ctx.bot.token){
+  if(ctx.params.token != ctx.bot.callback_hash){
     ctx.body = null
     return
   }
