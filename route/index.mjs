@@ -4,7 +4,7 @@ import Bot from './bot.mjs'
 let router = new KoaRouter()
 
 router
-  .use('/bot/:token', Bot.routes(), Bot.allowedMethods())
+  .use('/bot', Bot.routes(), Bot.allowedMethods())
   .all('/(.*)', (ctx, next) => {
     ctx.body = null
   })
