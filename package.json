@@ -26,7 +26,9 @@
   "dependencies": {
     "@koa/router": "^9.4.0",
     "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
     "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
     "node-fetch": "^2.6.1"
   }
 }
