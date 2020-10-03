@@ -9,9 +9,10 @@ module.exports = require('yargs')
     type: 'count',
     default: false,
   })
-  .command('getWebhookInfo')
-  .command('deleteWebhook')
-  .boolean('debug')
+  
+  // .command('getWebhookInfo')
+  // .command('deleteWebhook')
+  // .boolean('debug')
   // .option('bot.token', {
   //   demandOption: true,
   //   describe: "Bot token for API call",
