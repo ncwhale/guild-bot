@@ -1,11 +1,14 @@
 import Koa from 'koa'
 import KoaJson from 'koa-json'
-import KoaLogger from 'koa-logger'
+import KoaLogger from './middleware/logger.mjs'
 import router from './route/index.mjs'
 import Bot from './bot/index.mjs'
 import fs from 'fs'
 import process from 'process'
-import config from "./utils/argv.js"
+import config from "./utils/config.mjs"
+
+const log = config.log
+log.info(config, "App init")
 
 function is_listen_path() {
   return (typeof config.service.path === 'string' || config.service.path instanceof String)
@@ -29,12 +32,13 @@ function remove_socket_file() {
 }
 
 const app = new Koa()
+app.silent = true // Disable console.errors, use pino instead.
 
 app.context.bot = new Bot(config.bot)
 
 // Debugger logger
-if (config.debug || config.verbose > 3) {
-  app.use(KoaLogger())
+if (config.debug || config.verbose) {
+  app.use(KoaLogger(config))
 }
 
 // Koa middleware
