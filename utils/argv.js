@@ -7,17 +7,28 @@ module.exports = require('yargs')
     alias: 'v',
     describe: 'Verbose output.',
     type: 'count',
+    default: 2,
+  })
+  .option('slient', {
+    alias: 'q',
+    describe: 'Slient mode',
+    type: 'boolean',
     default: false,
   })
-  
+  .option('debug', {
+    alias: 'd',
+    describe: 'Debug mode',
+    type: 'boolean',
+    default: false,
+  })
   // .command('getWebhookInfo')
   // .command('deleteWebhook')
   // .boolean('debug')
-  // .option('bot.token', {
-  //   demandOption: true,
-  //   describe: "Bot token for API call",
-  //   type:'string',
-  // })
+  .option('bot.token', {
+    //   demandOption: true,
+    describe: "Bot token for API call",
+    type: 'string',
+  })
   .help('help')
   .alias({
     config: 'c',
