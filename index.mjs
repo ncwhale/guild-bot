@@ -36,10 +36,8 @@ app.silent = true // Disable console.errors, use pino instead.
 
 app.context.bot = new Bot(config.bot)
 
-// Debugger logger
-if (config.debug || config.verbose) {
-  app.use(KoaLogger(config))
-}
+// logger middleware
+app.use(KoaLogger(config))
 
 // Koa middleware
 app.use(KoaJson(config.json || { pretty: false, param: "p" }))
