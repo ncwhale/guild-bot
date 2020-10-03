@@ -13,6 +13,22 @@ class Bot {
     this.api_url = `${config.api_prefix || 'https://api.telegram.org/bot'}${config.token}/`
   }
 
+  async getMe() {
+    const result = await fetch(`${this.api_url}getMe`)
+
+    return await result.json()
+  }
+
+  async sendMessage(param) {
+    const result = await fetch(`${this.api_url}setWebhook`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+
+      }),
+    })
+  }
+
   async setWebhook() {
     const result = await fetch(`${this.api_url}setWebhook`, {
       method: 'POST',
@@ -35,9 +51,9 @@ class Bot {
     return await result.json()
   }
 
-  async update(Update) {
+  async update(ctx, message) {
     // Process telegram update
-    console.log(Update)
+    ctx.log.info({ message }, "Bot update")
 
     return {}
   }
