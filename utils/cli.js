@@ -14,6 +14,8 @@ async function main() {
     if (cmd in bot) {
       result = await bot[cmd](config)
       console.log(result)
+    }else{
+      console.error(`${cmd} not impl in bot`)
     }
   }
 }
