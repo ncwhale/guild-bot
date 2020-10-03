@@ -7,16 +7,22 @@ function create_logger(config) {
     switch (config.verbose) {
       case 5:
         pino_config.level = 'debug'
+        break;
       case 4:
         pino_config.level = 'info'
+        break;
       case 3:
         pino_config.level = 'warn'
+        break;
       case 2:
         pino_config.level = 'error'
+        break;
       case 1:
         pino_config.level = 'fatal'
+        break;
       case 0:
         pino_config.level = 'slient'
+        break;
       default:
         // Almost everything.
         pino_config.level = 'trace'
