@@ -1,7 +1,7 @@
 async function main() {
   const config = (await import('./config.mjs')).default
 
-  config.log.debug("config: ", { config })
+  config.log.debug( { config }, "config")
 
   const Bot = (await import('../bot/index.mjs')).default
   let bot = new Bot(config.bot)
@@ -12,7 +12,7 @@ async function main() {
 
     if (cmd in bot) {
       result = await bot[cmd](config)
-      config.log.info({ result })
+      config.log.info({ result },"result")
     } else {
       config.log.error(`${cmd} not impl in bot`)
     }
