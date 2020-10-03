@@ -7,9 +7,7 @@ router
   .post('/:callback_token', KoaBody(), (ctx) => {
     if (ctx.params.callback_token !== ctx.bot.callback_hash) {
       ctx.log.error({ params: ctx.params, body: ctx.request.body }, "Callback token not match")
-      // ctx.body = null
-      ctx.status = 405
-      // ctx.throw(405)
+      ctx.throw(405)
       return
     }
 
