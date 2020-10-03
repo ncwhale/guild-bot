@@ -24,7 +24,8 @@ class Bot {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-
+        chat_id: param.chat_id,
+        text: param.text,
       }),
     })
   }
