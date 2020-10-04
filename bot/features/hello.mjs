@@ -17,8 +17,7 @@ class Hello {
   }
 
   message(ctx, update) {
-    if ('text' in update.message && hello_regex.test(update.message.text)) {
-      ctx.log.debug("Hello~")
+    if ('text' in update.message && hello_regex.test(update.message.text) && !update.message.from.is_bot) {
       // Do a replay to this message.
       return ctx.bot.sendMessage({
         chat_id: update.message.chat.id,
@@ -27,8 +26,6 @@ class Hello {
       }).then((result) => {
         ctx.log.debug({ result })
       })
-    } else {
-      ctx.log.debug("Nothing.")
     }
   }
 }
