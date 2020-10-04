@@ -92,7 +92,7 @@ class Bot {
   }
 
   async update(ctx, update) {
-    ctx.log.trace({updpate}, "Process update")
+    ctx.log.debug({ update }, "Process update")
     // Process telegram update
     const keys = Object.keys(update)
     for (const key of keys) {
