@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 
 class Bot {
   constructor(config) {
+    this.log = config.log
     this.token = config.token
 
     const hash = crypto.createHash('sha256')
@@ -11,6 +12,15 @@ class Bot {
 
     this.callback_url = `${config.prefix}${this.callback_hash}`
     this.api_url = `${config.api_prefix || 'https://api.telegram.org/bot'}${config.token}/`
+  }
+
+  info() {
+    return {
+      // token: this.token,
+      // api: this.api_url,
+      callback_hash: this.callback_hash,
+      callback_url: this.callback_url,
+    }
   }
 
   async getMe() {
