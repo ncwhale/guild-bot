@@ -53,6 +53,22 @@ class Bot {
     return await result.json()
   }
 
+  async pinChatMessage(param) {
+    // TODO: param check.
+
+    const result = await fetch(`${this.api_url}pinChatMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: param.chat_id,
+        message_id: param.message_id,
+        disable_notification: !!param.disable_notification,
+      }),
+    })
+
+    return await result.json()
+  }
+
   async setWebhook() {
     const result = await fetch(`${this.api_url}setWebhook`, {
       method: 'POST',
