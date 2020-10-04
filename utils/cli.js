@@ -5,6 +5,7 @@ async function main() {
 
   const Bot = (await import('../bot/index.mjs')).default
   let bot = new Bot(config.bot)
+  await bot.init_done()
 
   for (cmd of config._) {
     if (config.verbose)
