@@ -44,7 +44,9 @@ app.use(KoaJson(config.json || { pretty: false, param: "p" }))
   .use(router.routes())
   .use(router.allowedMethods())
 
-if (is_entrypoint()) {
+async function main() {
+  await app.context.bot.init_done()
+
   if (is_listen_path()) {
     process.on("exit", remove_socket_file)
     remove_socket_file()
@@ -52,6 +54,10 @@ if (is_entrypoint()) {
   }
   else
     app.listen(config.port || 3000, config.host || '127.0.0.1')
+}
+
+if (is_entrypoint()) {
+  main()
 }
 
 export default app
