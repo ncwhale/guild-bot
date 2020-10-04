@@ -17,13 +17,18 @@ class Hello {
   }
 
   message(ctx, update) {
-    if (hello_regex.test(update.message.text)) {
-
+    if ('text' in update.message && hello_regex.test(update.message.text)) {
+      ctx.log.debug("Hello~")
       // Do a replay to this message.
       return ctx.bot.sendMessage({
         chat_id: update.message.chat.id,
-        text: `${random_hello()}, @${update.message.from.id}`
+        text: `${Hello.random_hello()}, @${update.message.from.username}`,
+        reply_to_message_id: update.message.message_id,
+      }).then((result) => {
+        ctx.log.debug({ result })
       })
+    } else {
+      ctx.log.debug("Nothing.")
     }
   }
 }
