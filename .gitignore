@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Ignore config.js file, avoid send secrets to git.
+# Ignore config file, avoid send secrets to git.
 config.js
+ecosystem.config.js
