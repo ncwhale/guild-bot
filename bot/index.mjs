@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import fetch from 'node-fetch'
+import loader from './loader.js'
 
 class Bot {
   constructor(config) {
@@ -12,6 +13,13 @@ class Bot {
 
     this.callback_url = `${config.prefix}${this.callback_hash}`
     this.api_url = `${config.api_prefix || 'https://api.telegram.org/bot'}${config.token}/`
+
+    this.callback_promise = loader(config) // Promise!
+  }
+
+  async init_done() {
+    // wait for all constructor ready.
+    this.callback = await this.callback_promise
   }
 
   info() {
@@ -30,14 +38,19 @@ class Bot {
   }
 
   async sendMessage(param) {
-    const result = await fetch(`${this.api_url}setWebhook`, {
+    // TODO: param check.
+
+    const result = await fetch(`${this.api_url}sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         chat_id: param.chat_id,
         text: param.text,
+        reply_to_message_id: param.reply_to_message_id,
       }),
     })
+
+    return await result.json()
   }
 
   async setWebhook() {
@@ -62,11 +75,17 @@ class Bot {
     return await result.json()
   }
 
-  async update(ctx, message) {
+  async update(ctx, update) {
     // Process telegram update
-    ctx.log.info({ message }, "Bot update")
+    const keys = Object.keys(update)
+    for (key of keys) {
+      for (const cb of this.callback[key]) {
+        await cb(ctx, update)
+      }
+    }
 
-    return {}
+    // Merge results
+    return ctx.body = Object.assign({}, ctx.body)
   }
 }
 
