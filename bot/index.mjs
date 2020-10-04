@@ -92,15 +92,16 @@ class Bot {
   }
 
   async update(ctx, update) {
+    ctx.log.trace({updpate}, "Process update")
     // Process telegram update
     const keys = Object.keys(update)
-    for (key of keys) {
+    for (const key of keys) {
       for (const cb of this.callback[key]) {
         await cb(ctx, update)
       }
     }
 
-    // Merge results
+    // TODO: Merge results
     return ctx.body = Object.assign({}, ctx.body)
   }
 }
