@@ -17,8 +17,11 @@ class Hello {
   }
 
   message(ctx, update) {
-    if ('text' in update.message && hello_regex.test(update.message.text) && !update.message.from.is_bot) {
-      // Do a replay to this message.
+    if ('text' in update.message
+      && !update.message.from.is_bot
+      && hello_regex.test(update.message.text)) {
+      // Someone said hello,
+      // Reply to this message.
       return ctx.bot.sendMessage({
         chat_id: update.message.chat.id,
         text: `${Hello.random_hello()}, @${update.message.from.username}`,
