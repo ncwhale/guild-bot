@@ -1,6 +1,6 @@
 class GuildBattlePin {
   constructor(config){
-    this.regex = config.auto_pin_regex || /(?:[Bb][12345]|[一二三四五壹貳叄肆伍]王|挂树)/
+    this.regex = config.auto_pin_regex || /[\s^](?:[Bb][12345]|[一二三四五壹貳叄肆伍]王|挂树)[了\s$]/
   }
 
   message(ctx, update){
