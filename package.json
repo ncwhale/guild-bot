@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "A PCR guild telegram bot. simeple&naive.",
   "main": "index.mjs",
+  "bin": {
+    "bot-service": "./index.mjs",
+    "bot-cli": "./utils/cli.js"
+  },
   "type": "commonjs",
   "scripts": {
     "start": "node index.mjs",
-    "test": "mocha"
+    "test": "npx mocha"
   },
   "repository": {
     "type": "git",
@@ -33,5 +37,8 @@
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0",
     "yargs": "^16.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.3"
   }
 }
