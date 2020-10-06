@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import Koa from 'koa'
 import KoaJson from 'koa-json'
 import KoaLogger from './middleware/logger.mjs'
