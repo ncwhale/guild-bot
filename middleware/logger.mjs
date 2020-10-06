@@ -1,5 +1,5 @@
 function create_logger(config) {
-  var debug = config.debug || cfg.verbose > 4
+  var debug = config.debug || config.verbose > 4
   var log = config.log
 
   if (debug) {
