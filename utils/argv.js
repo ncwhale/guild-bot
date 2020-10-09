@@ -21,6 +21,11 @@ module.exports = require('yargs')
     type: 'boolean',
     default: false,
   })
+  .option('bot.load_modules', {
+    type: 'boolean',
+    describe: 'Load bot modules.',
+    default: true,
+  })
   // .command('getWebhookInfo')
   // .command('deleteWebhook')
   // .boolean('debug')
