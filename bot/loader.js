@@ -43,9 +43,18 @@ function instance_callback_merge(callback, instance) {
   }
 }
 
+function module_list_merge(module_list, instance, full_path) {
+  // Detect module name.
+  // Warning: module with same name will overrite each other, but instance callbacks will still work!
+  const module_name = instance.name || path.basename(full_path, path.extname(full_path))
+  module_list[module_name] = instance
+  return module_name
+}
+
 async function bot_loader(config) {
   config = Object.assign({
     path: './bot/features',
+    load_modules: true,          //Default load all modules.
     module_ignore: ['index.js'], //Default ignore index.js
   }, config)
 
@@ -53,7 +62,13 @@ async function bot_loader(config) {
 
   // Make a clone.
   let Callbacks = Object.assign({}, UpdateMessageFields)
+  let Modules = {}
   const abs_path = path.join(__dirname, '..', config.path)
+
+  // Just return empty call stack.
+  if (!config.load_modules) {
+    return { Modules, Callbacks }
+  }
 
   log.info(`Load module from ${abs_path}`)
 
@@ -64,6 +79,7 @@ async function bot_loader(config) {
 
     const instance = new m(config)
     instance_callback_merge(Callbacks, instance)
+    module_list_merge(Modules, instance, abs_path)
   } else {
     log.debug(`Scan ${abs_path} for modules...`)
 
@@ -104,14 +120,12 @@ async function bot_loader(config) {
 
         const instance = new m(config)
         instance_callback_merge(Callbacks, instance)
+        module_list_merge(Modules, instance, full_path)
       }
     }
   }
 
-  // log.debug({ Callbacks }, "Bot feature loaded")
-  // console.log({ Callbacks }, "Bot feature loaded")
-
-  return Callbacks
+  return { Modules, Callbacks }
 }
 
 async function load_js_module(file) {
@@ -150,3 +164,5 @@ async function load_ejs_module(file) {
 }
 
 module.exports = bot_loader
+module.exports.module_list_merge = module_list_merge
+module.exports.instance_callback_merge = instance_callback_merge
