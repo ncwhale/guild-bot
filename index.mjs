@@ -10,7 +10,7 @@ import process from 'process'
 import config from "./utils/config.mjs"
 
 const log = config.log
-log.info(config, "App init")
+log.debug("App init")
 
 function is_listen_path() {
   return (typeof config.service.path === 'string' || config.service.path instanceof String)
