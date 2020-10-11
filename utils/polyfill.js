@@ -1,4 +1,6 @@
 function base64url_polyfill() {
+  // Base64url encode function.
+  // See https://tools.ietf.org/html/rfc4648#section-5
   Buffer.prototype.toBase64url = function () {
     return this.toString('base64').replace(/[\+\/]/g, x => { return x == '+' ? '-' : '_' })
   }
