@@ -1,12 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const config = await import("./utils/config.mjs")
+// connect_runtime_db, connect_log_db, connect_pcr_db
+const connector = await import("./connect.mjs")
 
 let sequelize;
 if (config.use_env_variable) {
